@@ -2,9 +2,10 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import App1 from './App1'
+
 
 import GalleryPhoto from './GalleryPhoto';
+import App1 from './App1';
 
 export default function Route() {
 
