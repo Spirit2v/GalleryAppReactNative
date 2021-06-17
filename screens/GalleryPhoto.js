@@ -11,6 +11,8 @@ export default function GalleryPhoto({navigation,route}) {
         <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
               <Container>
         <Header>
+
+            
         <Button iconLeft transparent primary
         onPress={() => navigation.goBack()}
  >
