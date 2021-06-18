@@ -4,7 +4,7 @@ import { Container, Header,Button, Left, Body, Right, Title, Icon } from 'native
 export default function GalleryPhoto({navigation,route}) {
     
     
-    const { photo, name } = route.params;
+    const { url_s, title } = route.params;
 
 
     return (
@@ -21,13 +21,13 @@ export default function GalleryPhoto({navigation,route}) {
           </Button>
        
           <Body style={{marginLeft:78}}>
-            <Title>{JSON.stringify(name)}</Title>
+            <Title>{JSON.stringify(title)}</Title>
           </Body>
      
         </Header>
           <Image
       
-        source={{ uri: photo }}
+        source={{ uri: url_s }}
         style={{ width: 440, height: 540 }}
       />
            </Container>
