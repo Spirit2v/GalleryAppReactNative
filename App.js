@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, StatusBar,Text } from 'react-native'
+import Dummy from './screens/Dummy'
 
 import Route from './screens/Route'
 
@@ -10,6 +11,6 @@ export default function App() {
     barStyle="light-content"
    
     backgroundColor="white" />
-    <Route/>
+  <Route />
   </>)
 }

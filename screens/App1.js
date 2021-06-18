@@ -1,16 +1,26 @@
 
-import React, { Component } from 'react';
-import {FlatList,StyleSheet,View,Image,Button,TouchableOpacity,Text} from 'react-native'
+import React, { Component,useState,useEffect } from 'react';
+import {FlatList,StyleSheet, ActivityIndicator,View,Image,Button,TouchableOpacity,Text} from 'react-native'
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Container, Header,Icon,Left, Body, Right, Title } from 'native-base';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import About from './About';
-let data = require('../Data.json')
-
-
+//let data = require('../Data.json')
+//import  getFlickrImageURL from './Api'
 
 function HomeScreen({ navigation }) {
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch('https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&per_page=20&page=1&api_key=6f102c62f41998d151e5a1b48713cf13&format=json&nojsoncallback=1&extras=url_s')
+      .then((response) => response.json())
+      .then((json) => setData(json.photos.photo))
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <Container>
 
@@ -32,11 +42,11 @@ function HomeScreen({ navigation }) {
           </Body>
      
         </Header>
-
+                
         <FlatList
         horizontal={false}
         numColumns={3}
-        data={data}
+        data={ data}
         renderItem={({ item }) => (
            
         <TouchableOpacity
@@ -46,7 +56,7 @@ function HomeScreen({ navigation }) {
                  <View style={{flex:1}}>
         
           <Image
-                source={{ uri: item.photo }}
+                source={{ uri: item.url_s }}
                 style={{ width: 140, height: 140 }}
           />
 
