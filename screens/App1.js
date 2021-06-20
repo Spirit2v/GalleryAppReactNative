@@ -1,5 +1,6 @@
 
 import React, { Component,useState,useEffect } from 'react';
+import AsyncStorage  from '@react-native-async-storage/async-storage';
 import {FlatList,StyleSheet, ActivityIndicator,View,Image,Button,TouchableOpacity,Text} from 'react-native'
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import { Container, Header,Icon,Left, Body, Right, Title } from 'native-base';
@@ -19,10 +20,38 @@ function HomeScreen({ navigation }) {
       .then((json) => setData(json.photos.photo))
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
-  }, []);
 
-  return (
-    <Container>
+  }, []);
+ 
+
+
+  const storeData = async () => {
+    try {
+      const jsonValue = JSON.stringify(data)
+      await AsyncStorage.setItem('@storage_Key', jsonValue)
+
+    } catch (e) {
+      // saving error
+    }
+  }
+
+
+ const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@storage_Key')
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    
+    } catch(e) {
+      // error reading value
+    }
+ 
+  }
+  
+
+  return (<>
+  
+ 
+   <Container>
 
         <Header style={{backgroundColor:'white',borderBottomWidth:0.2,borderColor:'black '}}>
 
@@ -38,15 +67,18 @@ function HomeScreen({ navigation }) {
     
          
           <Body  style={{marginLeft:120,color:'black'}}>
-            <Title style={{color:'black'}}>Gallery</Title>
+            <Title style={{color:'black'}}>Gallery 
+            
+            </Title>
           </Body>
      
         </Header>
-                
+        <Text> </Text>
+    
         <FlatList
         horizontal={false}
         numColumns={3}
-        data={ data}
+        data={getData}
         renderItem={({ item }) => (
            
         <TouchableOpacity
@@ -66,8 +98,9 @@ function HomeScreen({ navigation }) {
           </TouchableOpacity>
         )}
       />
-       </Container>
-
+       </Container
+       >
+</>
   );
 }
 
