@@ -49,7 +49,7 @@ function HomeScreen({ navigation }) {
   
 
   return (<>
-  
+
  
    <Container>
 
