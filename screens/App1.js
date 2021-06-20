@@ -23,37 +23,12 @@ function HomeScreen({ navigation }) {
 
   }, []);
  
-
-
-  const storeData = async () => {
-    try {
-      const jsonValue = JSON.stringify(data)
-      await AsyncStorage.setItem('@storage_Key', jsonValue)
-
-    } catch (e) {
-      // saving error
-    }
-  }
-
-
- const getData = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('@storage_Key')
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    
-    } catch(e) {
-      // error reading value
-    }
- 
-  }
-  
-
-  return (<>
+  return (
 
  
    <Container>
 
-        <Header style={{backgroundColor:'white',borderBottomWidth:0.2,borderColor:'black '}}>
+        <Header style={{backgroundColor:'white',borderBottomWidth:0.2,borderColor:'black ',marginBottom:-20}}>
 
  <TouchableOpacity 
    onPress={() => navigation.openDrawer()}
@@ -68,8 +43,7 @@ function HomeScreen({ navigation }) {
          
           <Body  style={{marginLeft:120,color:'black'}}>
             <Title style={{color:'black'}}>Gallery 
-            
-            </Title>
+  </Title>
           </Body>
      
         </Header>
@@ -78,7 +52,7 @@ function HomeScreen({ navigation }) {
         <FlatList
         horizontal={false}
         numColumns={3}
-        data={getData}
+        data={data}
         renderItem={({ item }) => (
            
         <TouchableOpacity
@@ -100,7 +74,6 @@ function HomeScreen({ navigation }) {
       />
        </Container
        >
-</>
   );
 }
 
